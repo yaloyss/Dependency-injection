@@ -1,4 +1,4 @@
-package com.yaloys;
+package com.yaloys.data;
 
 import com.google.gson.*;
 

@@ -1,16 +1,21 @@
-package com.yaloys;
+package com.yaloys.presentation;
+import com.yaloys.data.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
-import static com.yaloys.Reminders.gson;
+import com.yaloys.data.DaggerAppComponent;
+
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
-        var remindersRepository = new RemindersRepository();
-        remindersRepository.loadFromFile(gson);
+
+        AppComponent appComponent = DaggerAppComponent.create();
+        RemindersRepository remindersRepository = appComponent.getRemindersRepository();
+
+        remindersRepository.loadFromFile();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         System.out.println("====================================");
         System.out.println("Welcome to the Reminder App!");
@@ -101,6 +106,6 @@ public class Main {
             }
         }
         scanner.close();
-        remindersRepository.saveToFile(gson);
+        remindersRepository.saveToFile();
     }
 }

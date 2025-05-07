@@ -1,4 +1,4 @@
-package com.yaloys;
+package com.yaloys.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,13 +8,10 @@ import java.time.LocalDate;
 
 public class Reminders implements Serializable
 {
-    private static final long serialVersionUID = 1L; //контроль версії серіалізації
+    private static final long serialVersionUID = 1L;
     private String text;
     private final LocalDate date;
     private boolean isCompleted;
-    public static final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-            .setPrettyPrinting().create();
-//    private static Gson gson;
 
     public Reminders (String text, LocalDate date)
     {
@@ -22,10 +19,7 @@ public class Reminders implements Serializable
         this.date = date;
         this.isCompleted = false;
     }
-    public Gson getGson()
-    {
-        return gson;
-    }
+
     public String getText()
     {
         return text;

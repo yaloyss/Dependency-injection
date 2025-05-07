@@ -1,9 +1,8 @@
-package com.yaloys;
+package com.yaloys.data;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
+import javax.inject.Inject;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,8 +19,13 @@ public class RemindersRepository {
     private static final String FILE_NAME = "reminders.json";
     List<Reminders> remindersList = new ArrayList<>();
 
-//    private static final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-//            .setPrettyPrinting().create();
+    private final Gson gson;
+
+    @Inject
+    public RemindersRepository(Gson gson)
+    {
+        this.gson = gson;
+    }
 
     public boolean isEmpty() {
         return remindersList.isEmpty();
@@ -177,7 +181,7 @@ public class RemindersRepository {
         }
     }
 
-    public void saveToFile(Gson gson)
+    public void saveToFile()
     {
         try (FileWriter saver = new FileWriter(FILE_NAME)) {
             gson.toJson(remindersList, saver);
@@ -186,7 +190,7 @@ public class RemindersRepository {
         }
     }
 
-    public void loadFromFile (Gson gson)
+    public void loadFromFile ()
     {
         try (FileReader loader = new FileReader(FILE_NAME)) {
             Type listType = new TypeToken<List<Reminders>>() {
